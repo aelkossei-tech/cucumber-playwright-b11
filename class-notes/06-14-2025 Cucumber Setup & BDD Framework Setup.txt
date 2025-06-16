@@ -1,0 +1,120 @@
+Creating a BDD Framework: 
+
+DEPENDENCIES: We'll use Cucumber - Playwright - JavaScript 
+    dotenv to read global environment variables 
+
+1. Create a new project 
+
+    mkdir cucumber-playwright-b11
+    cd cucumber-playwright-b11
+
+    - Open a new terminal window 
+    - pwd 
+    - cd Desktop 
+    - mkdir cucumber-playwright-b11
+    - cd cucumber-playwright-b11
+    - pwd 
+
+2. Iniitialize a new Node.js project 
+    npm init 
+
+3. Install required NPM packages 
+    npm i @cucumber/cucumber - D
+    npm i @cucumber/pretty-cucumber - D
+    npm i @playwright/test -D 
+    npm i dotenv -D 
+
+    3.1 Install Playwright Browsers 
+        npx playwright install  
+
+4. Create project structure 
+    mkdir pages features steps support
+
+    - pages --> Page Object Models
+    - features --> Gherkin Feature Files 
+    - steps  --> (step-definitions or stepDefinitions)
+    - support --> Global setups and hooks 
+
+5. Add other required files as .gitignore, .env, and more 
+    - You may initialize your git
+        git init
+
+        {
+            "cucumberautocomplete.steps": [
+                "test/features/step_definitions/*.js",
+                "node_modules/qa-lib/src/step_definitions/*.js"
+            ],
+            "cucumberautocomplete.strictGherkinCompletion": true
+        }
+
+NOTE: When you use Cucumber, you CANNOT Playwright Runner anymore (playwright config file cannot be used)
+
+6. Set Global Setups under support folder 
+
+        a. CustomWorld.js
+
+            import { setWorldConstructor, World } from "@cucumber/cucumber"; 
+
+            class CustomWorld extends World {
+                 constructor(options) {
+                 super(options); 
+
+                // Declare fixtures which will be set later in the Hooks 
+                this.browser = null; 
+                this.context = null; 
+                this.page = null; 
+            }
+        }
+
+        setWorldConstructor(CustomWorld); 
+
+
+        b. CucumberHooks.js
+
+
+        setDefaultTimeout(60000); 
+
+            BeforeAll(async function() {
+                  global.browser = await chromium.launch({
+                  headless: false 
+             }); 
+        });
+
+            Before(async function() {
+                this.global.browser = global.browser; 
+                this.context = await this.browser.newContext(); 
+                this.page = await this.context.newPage(); 
+            }); 
+
+            After(async function() {  
+                 await this.page.close(); 
+                 await this.context.close(); 
+            }); 
+
+            AfterAll(async function() {
+              await this.browser.close(); 
+            });
+
+7. Set Cucumber Runner ( We DON'T use Playwright Runner)
+
+module.export = {
+    default: {
+        paths: ["features/**/*.feature"], 
+        require: ["steps/**/*.js", "support/**/*.js"], 
+        formatOptions: {
+            snippetInterface: 'async-await', 
+            colorsEnabled: true 
+        }, 
+        // Define al the reports to be generated 
+        format: [
+            'html: reports/cucumber-report.html', 
+            'junit:reports/cucumber-reports.xml', 
+            '@cucumber/pretty-formatter'
+        ], 
+        dryRun: false, 
+        tags: ""
+    }
+}
+
+8. Run the scripts 
+    npx cucumber-js

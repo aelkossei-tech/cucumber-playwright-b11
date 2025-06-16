@@ -1,0 +1,43 @@
+RECAP: 
+
+npx cucumber-js --> How we run all the available tests 
+
+Cucumber Framework Set Up: 
+    - cucumber.js (most important file) --> This is your runner 
+        - Cucumber uses its own runner, rather than playwright.config runner 
+        - In this file ==> we define:
+            - where the feature files are 
+            - where the step definitions/implementations are 
+            - what types of reports to generate 
+            - format options to generate missing step implementations 
+            - which tags to run 
+            - DryRun (can be set to true or false to check if any implementation is missing)
+
+    - Creating CucumberHooks.js --> we created all the before (setup actions) and after (teardown) actions 
+        - Before()
+        - After()
+        - BeforeAll()
+        - AfterAll()
+
+    - Features ==> which has all the scenarios written in Gherkin syntax 
+        - Background: used for common steps to be shared by multiple scenarios and rerun before each 
+
+    - Setting up useful VSCode extension to quickly generate and track Gherkin step implementations 
+
+
+    ** In your Cucumber, where is the start point [when you run a test in terminal, which file is visited first in your framework] **
+        1. cucumber.js [our runner file/ our pseudo playwright config file]
+            - there are specific file [paths that you have already defined]
+
+        2. CustomWorld.js (if you don't habe CustomWorld, it will visit World()) 
+        3. CustomHooks.js --> now all the Before actions are executed 
+        4. Feature files 
+        5. Steps files (matching ones to the feature files)
+        6. CustomHooks.js AGAIN --> with After actions
+        7. Create reports --> html + xml + etc. 
+
+
+- dryRun: true ===> will check all your feature files and provide code-snippets for the un-implemented Gherkin steps w/o execution 
+
+** INTERVIEW QUESTION: What is dryRun? **
+It gives you a list of all un-implemented steps 
