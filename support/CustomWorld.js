@@ -14,6 +14,8 @@ class CustomWorld extends World{
     this.wikiSearchPage = null;
     this.tgBasePage = null;
     this.tgFrontendTestingPage = null;
+    this.tgDynamicTablesPage = null; 
+    this.tgLoginPage = null; 
   }
 }
 

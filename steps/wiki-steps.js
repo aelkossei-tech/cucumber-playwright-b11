@@ -37,3 +37,29 @@ Then('I see {string} in the main heading', async function (query) {
     }
     expect(this.page.url()).toContain(query); 
     */
+
+
+Then('I see following languages in order:', async function(datatable) {
+  const count = await this.wikiSearchPage.topLanguageLabels.count();
+  console.log('Count', count);
+
+  for(let i = 0; i < count; i++) {
+    expect(await this.wikiSearchPage.topLanguageLabels.nth(i).innerText()).toBe(datatable.rawTable[0][i]);
+  }
+});
+
+
+
+Then('I verify below table', async function(datatable) {
+	console.log(datatable);
+
+  const data = datatable.rawTable;
+
+  // First column
+  for(let i = 0; i < data.length; i++) {
+    console.log(data[i][0])
+  }
+
+  // First row
+  console.log(data[0]);
+});

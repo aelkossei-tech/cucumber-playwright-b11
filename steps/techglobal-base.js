@@ -1,7 +1,6 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 
-
 Given(/^I am on "([^"]*)"$/, async function(url) {
   await this.basePage.goto(url);
 });
@@ -33,5 +32,5 @@ Then(/^I see 10 project cards$/, async function() {
 });
 
 When('I click {string} {word}', async function(elementText, elementRole) {
-  await this.page.getByRole(elementRole, { name: elementText}).click();
+  await this.page.getByRole(elementRole, { name: elementText, exact: true}).click();
 });

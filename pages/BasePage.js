@@ -19,4 +19,8 @@ export class BasePage {
   async getTitle() {
     return await this.page.title();
   }
+
+  async wait(ms) {
+    await this.page.waitForTimeout(ms);
+  }
 }

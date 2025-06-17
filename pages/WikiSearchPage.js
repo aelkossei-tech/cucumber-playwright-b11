@@ -6,6 +6,7 @@ export class WikiSearchPage extends BasePage {
 
     // Locators
     this.searchInput = this.page.locator('#searchInput');
+    this.topLanguageLabels = this.page.locator('[aria-label="Top Languages"] strong'); 
   }
 
   // Reusable methods

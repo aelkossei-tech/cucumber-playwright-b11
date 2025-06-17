@@ -1,0 +1,18 @@
+
+** INTERVIEW QUESTION: What is Scenario Outline and when do you use it? **
+
+We use Scenario Outline when we need to run the same test for different sets of data. 
+We use Scenario Outline instead of Scenario to declare a new test(s); we have to follow the Examples table to define the data sets. 
+
+For each row (except the headers) --> the scenario will be executed
+
+
+* Allure reports --> Playwright + Cypress  
+* Extend reports --> Playwright + Cypress
+
+- Data Tables ==> versatile structure used to provide detailed test data for a specific step within a scenario 
+    - unlike Scenario Outlines --> Data Tables doesn't require any special keywords and is directly linked to the step 
+
+
+** INTERVIEW QUESTION: What is the difference between Scenario Outline and DataTable? ** 
+    - 

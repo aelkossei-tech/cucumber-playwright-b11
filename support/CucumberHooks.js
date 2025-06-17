@@ -4,6 +4,8 @@ import { WikiSearchPage } from "../pages/WikiSearchPage.js";
 import { TGBasePage } from "../pages/tg-app-pages/TGBasePage.js";
 import { TGFrontendTestingPage } from "../pages/tg-app-pages/TGFrontendTestingPage.js";
 import { BasePage } from "../pages/BasePage.js";
+import { TGDynamicTablesPage } from "../pages/tg-app-pages/TGDynamicTablesPage.js";
+import { TGLoginPage } from "../pages/tg-app-pages/TGLoginPage.js";
 
 // This file runs before/after anything else in the steps folder
 setDefaultTimeout(60000);
@@ -23,6 +25,8 @@ Before(async function() {
   this.wikiSearchPage = new WikiSearchPage(this.page);
   this.tgBasePage = new TGBasePage(this.page);
   this.tgFrontendTestingPage = new TGFrontendTestingPage(this.page);
+  this.tgDynamicTablesPage = new TGDynamicTablesPage(this.page); 
+  this.tgLoginPage = new TGLoginPage(this.page); 
 });
 
 After(async function() {
